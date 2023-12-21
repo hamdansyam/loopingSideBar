@@ -9,13 +9,12 @@
   <script>
   function sidebarToGs() {
     
-    var cb = "";
-      if (document.getElementById("LevelX").checked == true){ cb = "X-1,X-2,X-3,X-4";}
-      else if (document.getElementById("LevelXI").checked == true){ cb = "XI-1,XI-2,XI-3,XI-4";}
-      else if (document.getElementById("LevelXII").checked == true){ cb = "XII MIPA 1,XII MIPA 2,XII IPS 1,XII IPS 2";}
-      else if (document.getElementById("allLevel").checked == true){ cb = "X-1,X-2,X-3,X-4,XI-1,XI-2,XI-3,XI-4,XII MIPA 1,XII MIPA 2,XII IPS 1,XII IPS 2";}
-      else {cb = document.getElementById('customeLabel').value;}
-    var kelas = cb.replace(/,\s*$/, "").split(',');
+    var cb = [];
+      if (document.getElementById("LevelX").checked == true){ cb.push('X-1','X-2','X-3','X-4')}
+      if (document.getElementById("LevelXI").checked == true){ cb.push('XI-1','XI-2','XI-3','XI-4')}
+      if (document.getElementById("LevelXII").checked == true){ cb.push('XII MIPA 1','XII MIPA 2','XII IPS 1','XII IPS 2')}
+      else {cb.push(document.getElementById('customeLabel').value)}
+    var kelas = cb
     var ambilRange = document.getElementById('ambilRange').value;
     var namaTemplate = document.getElementById('namaTemplate').value;
         google.script.run.loopingsheet(kelas, ambilRange, namaTemplate);
@@ -32,10 +31,9 @@
   <body>
     <pre>
     Sheet Label
-    <input type="checkbox" name="LevelX" id="LevelX">Level X
+    <input type="checkbox" name="LevelX" id="LevelX" >Level X
     <input type="checkbox" name="LevelXI" id="LevelXI">Level XI
     <input type="checkbox" name="LevelXII" id="LevelXII">Level XII
-    <input type="checkbox" name="allLevel" id="allLevel">All Level
     Custome Label
     <input type="text" name="customeLabel" id="customeLabel">
     Ambil Range
