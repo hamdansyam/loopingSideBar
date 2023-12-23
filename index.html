@@ -18,6 +18,15 @@
     var namaTemplate = document.getElementById('namaTemplate').value;
         google.script.run.loopingsheet(kelas, ambilRange, namaTemplate);
   }
+  function btnCheckAll() {
+  document.getElementById('btnCheckAll').onclick = function(e) {
+    e.preventDefault()
+    var checkboxes = document.getElementsByName('Level')
+    for(var i=0; i<checkboxes.length; i++) {
+      checkboxes[i].checked = true
+    }
+  }
+  }
 
   function reset() {
     document.getElementById('LevelX').checked = false;
@@ -29,9 +38,10 @@
   <body>
     <pre>
     Sheet Label
-    <input type="checkbox" name="LevelX" id="LevelX" >Level X
-    <input type="checkbox" name="LevelXI" id="LevelXI">Level XI
-    <input type="checkbox" name="LevelXII" id="LevelXII">Level XII
+    <input type="checkbox" name="Level" id="LevelX" >Level X
+    <input type="checkbox" name="Level" id="LevelXI">Level XI
+    <input type="checkbox" name="Level" id="LevelXII">Level XII
+    <button id="btnCheckAll" onclick="btnCheckAll()">Check All</button>
     Ambil Range
     <input type="text" name="ambilRange" id="ambilRange">
     Nama Template
