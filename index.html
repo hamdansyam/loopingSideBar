@@ -14,9 +14,10 @@
       if (document.getElementById("LevelXI").checked == true){ cb.push('XI-1','XI-2','XI-3','XI-4')}
       if (document.getElementById("LevelXII").checked == true){ cb.push('XII MIPA 1','XII MIPA 2','XII IPS 1','XII IPS 2')}
     var kelas = cb
+    var classHeader = document.getElementById('classHeader').value
     var ambilRange = document.getElementById('ambilRange').value;
     var namaTemplate = document.getElementById('namaTemplate').value;
-        google.script.run.loopingsheet(kelas, ambilRange, namaTemplate);
+        google.script.run.loopingsheet(kelas, ambilRange, namaTemplate, classHeader);
   }
   function btnCheckAll() {
   document.getElementById('btnCheckAll').onclick = function(e) {
@@ -42,9 +43,11 @@
     <input type="checkbox" name="Level" id="LevelXI">Level XI
     <input type="checkbox" name="Level" id="LevelXII">Level XII
     <button id="btnCheckAll" onclick="btnCheckAll()">Check All</button>
-    Ambil Range
+    Ambil Range : 
     <input type="text" name="ambilRange" id="ambilRange">
-    Nama Template
+    Class Header in cell : 
+    <input type="text" name="classHeader" id="classHeader" value="A6">
+    Nama Template : 
     <input type="input" id="namaTemplate" value="Sheet1">
     <input type="button" onclick="sidebarToGs()" value="Ok" />
     <input type="reset" onclick="reset()" value="Reset" />
