@@ -11,7 +11,7 @@ function doGet(e) {
   return HtmlService.createHtmlOutputFromFile('index');
 }
 
-function loopingsheet(kelas, ambilRange, namaTemplate){
+function loopingsheet(kelas, ambilRange, namaTemplate, classHeader){
 var namaSheet = kelas;
 if (namaSheet == "") {namaSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Ambil Range').getRange(ambilRange).getValues().toString().split(',');}
 var berapaKali = namaSheet.length - 1;
@@ -20,6 +20,8 @@ var berapaKali = namaSheet.length - 1;
     var jumlahSheet = namaSheet[i];
     const sheetTemplate = SpreadsheetApp.getActiveSpreadsheet();
     var formatLooping = sheetTemplate.insertSheet(jumlahSheet,1,{template: sheetTemplate.getSheetByName(namaTemplate)});
-    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(namaSheet[i]).getRange('a6').setValue(namaSheet[i]);
+
+    // Set value into custome cell
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(namaSheet[i]).getRange(classHeader).setValue(namaSheet[i]);
     }
 }
