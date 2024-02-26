@@ -6,36 +6,38 @@
     body,html { background: black; color: white;}
   </style>
   </head>
+
   <script>
+  var elementId = id => document.getElementById(id)
   function sidebarToGs() {
-    
-    var cb = [];
-      if (document.getElementById("LevelX").checked == true){ cb.push('X-1','X-2','X-3','X-4')}
-      if (document.getElementById("LevelXI").checked == true){ cb.push('XI-1','XI-2','XI-3','XI-4')}
-      if (document.getElementById("LevelXII").checked == true){ cb.push('XII MIPA 1','XII MIPA 2','XII IPS 1','XII IPS 2')}
-    var kelas = cb
-    var classHeader = document.getElementById('classHeader').value
-    var ambilRange = document.getElementById('ambilRange').value;
-    var namaTemplate = document.getElementById('namaTemplate').value;
-        google.script.run.loopingsheet(kelas, ambilRange, namaTemplate, classHeader);
+    let cb = [];
+    if (elementId("LevelX").checked == true){ cb.push('X-1','X-2','X-3','X-4')}
+    if (elementId("LevelXI").checked == true){ cb.push('XI-1','XI-2','XI-3','XI-4')}
+    if (elementId("LevelXII").checked == true){ cb.push('XII MIPA 1','XII MIPA 2','XII IPS 1','XII IPS 2')}
+    let kelas = cb
+    let classHeader = elementId('classHeader').value
+    let ambilRange = elementId('ambilRange').value;
+    let namaTemplate = elementId('namaTemplate').value;
+    google.script.run.loopingsheet(kelas, ambilRange, namaTemplate, classHeader);
   }
   function btnCheckAll() {
-  document.getElementById('btnCheckAll').onclick = function(e) {
-    e.preventDefault()
-    var checkboxes = document.getElementsByName('Level')
-    for(var i=0; i<checkboxes.length; i++) {
-      checkboxes[i].checked = true
+    elementId('btnCheckAll').onclick = function(e) {
+      e.preventDefault()
+      let checkboxes = elementId('Level')
+      for(var i=0; i<checkboxes.length; i++) {
+        checkboxes[i].checked = true
+      }
     }
-  }
   }
 
   function reset() {
-    document.getElementById('LevelX').checked = false;
-    document.getElementById('LevelXI').checked = false;
-    document.getElementById('LevelXII').checked = false;
-    document.getElementById('ambilRange').value = '';
+    elementId('LevelX').checked = false;
+    elementId('LevelXI').checked = false;
+    elementId('LevelXII').checked = false;
+    elementId('ambilRange').value = '';
   }
   </script>
+
   <body>
     <pre>
     Sheet Label
