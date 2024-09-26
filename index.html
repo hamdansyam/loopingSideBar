@@ -8,15 +8,15 @@
   </head>
   <script>
   function sidebarToGs() {
-    var cb = [];
-      if (document.getElementById("LevelX").checked == true){ cb.push('X-1','X-2','X-3','X-4')}
-      if (document.getElementById("LevelXI").checked == true){ cb.push('XI-1','XI-2','XI-3','XI-4')}
-      if (document.getElementById("LevelXII").checked == true){ cb.push('XII-1','XII-2','XII-3','XII-4')}
-    var kelas = cb
+    var studentClass = [];
+      if (document.getElementById("LevelX").checked == true){ studentClass.push('X-1','X-2','X-3','X-4')}
+      if (document.getElementById("LevelXI").checked == true){ studentClass.push('XI-1','XI-2','XI-3','XI-4')}
+      if (document.getElementById("LevelXII").checked == true){ studentClass.push('XII-1','XII-2','XII-3','XII-4')}
+    // var kelas = cb
     var classHeader = document.getElementById('classHeader').value
-    var ambilRange = document.getElementById('ambilRange').value;
-    var namaTemplate = document.getElementById('namaTemplate').value;
-        google.script.run.loopingsheet(kelas, ambilRange, namaTemplate, classHeader);
+    var rangeOfName = document.getElementById('rangeOfName').value;
+    var templateName = document.getElementById('templateName').value;
+        google.script.run.loopingsheet(studentClass, rangeOfName, templateName, classHeader);
   }
 
   function btnCheckAll() {
@@ -33,22 +33,22 @@
     document.getElementById('LevelX').checked = false;
     document.getElementById('LevelXI').checked = false;
     document.getElementById('LevelXII').checked = false;
-    document.getElementById('ambilRange').value = '';
+    document.getElementById('rangeOfName').value = '';
   }
   </script>
   <body>
     <pre>
-    Sheet Label
+    Sheet Name
     <input type="checkbox" name="Level" id="LevelX" >Level X
     <input type="checkbox" name="Level" id="LevelXI">Level XI
     <input type="checkbox" name="Level" id="LevelXII">Level XII
     <button id="btnCheckAll" onclick="btnCheckAll()">Check All</button>
-    Ambil Range : 
-    <input type="text" name="ambilRange" id="ambilRange">
+    Sheet Name (from a range)
+    <input type="text" name="rangeOfName" id="rangeOfName">
     Class Header in cell : 
     <input type="text" name="classHeader" id="classHeader" value="A6">
-    Nama Template : 
-    <input type="input" id="namaTemplate" value="Sheet1">
+    Template : 
+    <input type="input" id="templateName" value="Sheet1">
     <input type="button" onclick="sidebarToGs()" value="Ok" />
     <input type="reset" onclick="reset()" value="Reset" />
     <pre>
