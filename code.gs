@@ -4,45 +4,48 @@ function onOpen() {
 }
 //OPEN THE FORM IN SIDEBAR 
 function showFormInSidebar() {      
-  var form = HtmlService.createTemplateFromFile('index').evaluate().setTitle('Input Data Sidebar');
+  var form = HtmlService.createTemplateFromFile('index').evaluate().setTitle('Looping My Sheet');
   SpreadsheetApp.getUi().showSidebar(form);
 }
 function doGet(e) {
   return HtmlService.createHtmlOutputFromFile('index');
 }
 
-function loopingsheet(kelas, ambilRange, namaTemplate, classHeader){
-  var namaSheet = kelas;
-  if (namaSheet == "") {
-    namaSheet = SpreadsheetApp.getActiveSpreadsheet()
+function loopingsheet(studentClass, rangeOfName, templateName, classHeader){
+  var sheetName = studentClass;
+  if (sheetName == "") {
+    sheetName = SpreadsheetApp.getActiveSpreadsheet()
                 .getSheetByName('Ambil Range')
-                .getRange(ambilRange)
+                .getRange(rangeOfName)
                 .getValues()
                 .toString()
                 .split(',');
   }
-  var berapaKali = namaSheet.length - 1;
-    for (i=0; i<=berapaKali; i++) {  
-      let sheetYgAktif = SpreadsheetApp.getActiveSpreadsheet().getSheets();
-      var jumlahSheet = namaSheet[i];
-      const sheetTemplate = SpreadsheetApp.getActiveSpreadsheet();
-      var formatLooping = sheetTemplate.insertSheet(jumlahSheet,1,{template: sheetTemplate.getSheetByName(namaTemplate)});
 
-      // Set value into custome cell
-      SpreadsheetApp.getActiveSpreadsheet().getSheetByName(namaSheet[i]).getRange(classHeader).setValue(namaSheet[i]);
+  for (i=0; i<=(sheetName.length - 1); i++) {  
+    // Active sheet for duplicated at proccess of looping
+    SpreadsheetApp.getActiveSpreadsheet().getSheets();
 
-      // Number of row that will be hidden
-      let notZero = () => {
-      ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(namaSheet[i]).getRange('A9:A48').getValues()
-      filterNotZero = ss.filter((x) => x > 0)
-      startNumber = 9
-      return (filterNotZero.length) + startNumber
-      }
+    const templateOfSheet = SpreadsheetApp.getActiveSpreadsheet();
 
-      // Hide row if any an empty cell
-      SpreadsheetApp.getActiveSpreadsheet().getSheetByName(namaSheet[i]).hideRow(
-        SpreadsheetApp.getActiveSpreadsheet().getSheetByName(namaSheet[i]).getRange(`A${notZero()}:A43`)
-      )
+    // Format for looping sheet
+    templateOfSheet.insertSheet(sheetName[i],1,{template: templateOfSheet.getSheetByName(templateName)});
 
+    // Set value into custome cell
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).getRange(classHeader).setValue(sheetName[i]);
+
+    // Number of row that will be hidden
+    let notZero = () => {
+    ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).getRange('A9:A48').getValues()
+    filterNotZero = ss.filter((x) => x > 0)
+    startNumber = 9
+    return (filterNotZero.length) + startNumber
     }
+
+    // Hide row if any empty cell
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).hideRow(
+      SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).getRange(`A${notZero()}:A43`)
+    )
+
+  }
 }
