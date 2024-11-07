@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <base target="_top">
-  <style>
-    body,html { background: black; color: white;}
-  </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <base target="_top">
+    <?!= include('css') ?>
   </head>
   <script>
   function sidebarToGs() {
@@ -16,7 +15,9 @@
     var classHeader = document.getElementById('classHeader').value
     var rangeOfName = document.getElementById('rangeOfName').value;
     var templateName = document.getElementById('templateName').value;
-        google.script.run.loopingsheet(studentClass, rangeOfName, templateName, classHeader);
+    var hiddingRow = []
+      if(document.getElementById('hiddingRow').checked == true) {hiddingRow.push('hide')}
+    google.script.run.loopingsheet(studentClass, rangeOfName, templateName, classHeader, hiddingRow);
   }
 
   function btnCheckAll() {
@@ -37,20 +38,68 @@
   }
   </script>
   <body>
-    <pre>
-    Sheet Name
-    <input type="checkbox" name="Level" id="LevelX" >Level X
-    <input type="checkbox" name="Level" id="LevelXI">Level XI
-    <input type="checkbox" name="Level" id="LevelXII">Level XII
-    <button id="btnCheckAll" onclick="btnCheckAll()">Check All</button>
-    Sheet Name (from a range)
-    <input type="text" name="rangeOfName" id="rangeOfName">
-    Class Header in cell : 
-    <input type="text" name="classHeader" id="classHeader" value="A6">
-    Template : 
-    <input type="input" id="templateName" value="Sheet1">
-    <input type="button" onclick="sidebarToGs()" value="Ok" />
-    <input type="reset" onclick="reset()" value="Reset" />
-    <pre>
+    <div class="container">
+      <div class="header">
+        <h1 class="display-6"> My Looping Sheet </h1>
+      </div>
+
+      <div class="formulir">
+        <h7> Sheet Name </h7>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="Level" id="LevelX" >
+          <label class="form-check-label" for="flexCheckDefault">
+            Level X
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="Level" id="LevelXI" >
+          <label class="form-check-label" for="flexCheckDefault">
+            Level XI
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="Level" id="LevelXII" >
+          <label class="form-check-label" for="flexCheckDefault">
+            Level XII
+          </label>
+        </div>
+        <div>
+          <button id="btnCheckAll" onclick="btnCheckAll()">Check All</button>
+        </div>
+        <br>
+        <h7> Sheet Name (from a range)</h7>
+        <div class="input-group input-group-sm mb-3">
+          <input type="text" name="rangeOfName" id="rangeOfName" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <h7> Class Header in cell </h7>
+        <div class="input-group input-group-sm mb-3">
+          <input type="text" name="classHeader" id="classHeader" class="form-control" value="A6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <h7> Template </h7>
+        <select class="form-control" aria-label="Sizing example input" name="templateName" id="templateName">
+          <option selected>Sheet1</option>
+          <option value="Pemb. Rapor">Pemb. Rapor</option>
+          <option value="Biodata Rapor">Biodata Rapor</option>
+          <option value="Summons">Summons</option>
+          <option value="CGC">CGC</option>
+          <option value="Warning Letters">Warning Letters</option>
+          <option value="Chair">Chair</option>
+        </select>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="hiddingRow" id="hiddingRow"  value="hide" checked>
+          <label class="form-check-label" for="flexCheckDefault">
+            Hide empty table
+          </label>
+        </div>
+        <button type="button" onclick="sidebarToGs()" class="btn btn-primary">Ok</button>
+        <button type="reset" onclick="reset()" class="btn btn-secondary">Reset</button>
+      </div>
+
+      <div class="footer">
+          <h10>©Copyright 2024 by Donidon. All rights reversed.</h10>
+      </div>
+
+    </div>
   </body>
 </html>
