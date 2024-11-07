@@ -10,8 +10,12 @@ function showFormInSidebar() {
 function doGet(e) {
   return HtmlService.createHtmlOutputFromFile('index');
 }
+// Connecting css.html file to index.html
+function include(filename){
+  return HtmlService.createHtmlOutputFromFile(filename).getContent()
+}
 
-function loopingsheet(studentClass, rangeOfName, templateName, classHeader){
+function loopingsheet(studentClass, rangeOfName, templateName, classHeader, hiddingRow){
   var sheetName = studentClass;
   if (sheetName == "") {
     sheetName = SpreadsheetApp.getActiveSpreadsheet()
@@ -41,11 +45,14 @@ function loopingsheet(studentClass, rangeOfName, templateName, classHeader){
     startNumber = 9
     return (filterNotZero.length) + startNumber
     }
-
+    
     // Hide row if any empty cell
-    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).hideRow(
-      SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).getRange(`A${notZero()}:A43`)
-    )
+    if(hiddingRow == 'hide') {
+      SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).hideRow(
+          SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName[i]).getRange(`A${notZero()}:A43`)
+        )
+    }
+  
 
   }
 }
